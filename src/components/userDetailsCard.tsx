@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { Card, Button, Space } from 'antd';
 import { fetchUserData } from '../services/torboxService';
-
-interface UserDetails {
-    data: any;
-    detail: string;
-    error: string | null
-    success: boolean;
-}
+import { GetUserDataOkResponse } from '../types/torbox';
 
 const UserDetailsCard: React.FC = () => {
-    const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+    const [userDetails, setUserDetails] = useState<GetUserDataOkResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const handleFetch = async () => {
         try {
-            const userDetails: UserDetails = await fetchUserData();
-            setUserDetails(userDetails);
+            const fetchedUserDetails: GetUserDataOkResponse = await fetchUserData();
+            setUserDetails(fetchedUserDetails);
             setError(null);
         } catch (err) {
             setError("Failed to fetch user details");

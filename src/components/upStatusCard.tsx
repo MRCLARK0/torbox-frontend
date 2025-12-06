@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { Card, Button, Space } from 'antd';
 import { fetchUpStatus } from '../services/torboxService';
-
-interface UpStatus {
-    data: any;
-    detail: string;
-    error: string | null;
-    success: boolean;
-}
+import { GetUpStatusOkResponse } from '../types/torbox';
 
 const StatusUpCard: React.FC = () => {
-    const [upStatus, setUpStatus] = useState<UpStatus | null>(null);
+    const [upStatus, setUpStatus] = useState<GetUpStatusOkResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const handleFetch = async () => {
         try {
-            const status: UpStatus = await fetchUpStatus();
+            const status: GetUpStatusOkResponse = await fetchUpStatus();
             setUpStatus(status);
             setError(null);
         } catch (err) {
